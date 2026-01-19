@@ -13,26 +13,31 @@ The Agent Service is the brain of Syntera's conversational AI platform. It orche
 ## Core Responsibilities
 
 ### 🤖 AI Agent Management
+
 - **Agent CRUD operations** - Create, read, update, delete AI agents
 - **Configuration management** - Model settings, prompts, voice settings
 - **Multi-tenant isolation** - Company-scoped agent access
 
 ### 💬 Response Generation
+
 - **OpenAI GPT-4 integration** - Intelligent conversation responses
 - **Context-aware replies** - Memory of conversation history
 - **Workflow triggers** - Automated actions based on conversation events
 
 ### 🎤 Voice Integration
+
 - **LiveKit room management** - Voice call coordination
 - **Agent dispatch** - Voice agent activation for calls
 - **Token generation** - Secure WebRTC authentication
 
 ### 🔄 Workflow Automation
+
 - **Custom triggers** - Conversation events, user actions, time-based
 - **Action execution** - Send emails, update CRM, create tasks
 - **Variable system** - Dynamic data substitution
 
 ### 📊 Advanced Features
+
 - **Intent detection** - Understand user intent from messages
 - **Sentiment analysis** - Emotional tone classification
 - **Knowledge base integration** - RAG-powered responses
@@ -41,6 +46,7 @@ The Agent Service is the brain of Syntera's conversational AI platform. It orche
 ## API Endpoints
 
 ### Agent Management
+
 ```
 POST   /api/agents              # Create agent
 GET    /api/agents              # List agents
@@ -51,6 +57,7 @@ GET    /api/agents/:id/avatar   # Get agent avatar
 ```
 
 ### AI Responses
+
 ```
 POST   /api/responses/generate  # Generate AI response
 POST   /api/responses/summarize # Summarize conversation
@@ -59,12 +66,14 @@ POST   /api/responses/sentiment # Analyze sentiment
 ```
 
 ### Voice Integration
+
 ```
 POST   /api/livekit/token       # Generate LiveKit access token
 POST   /api/voice-bot/dispatch  # Dispatch voice agent
 ```
 
 ### Workflows
+
 ```
 GET    /api/workflows           # List workflows
 POST   /api/workflows           # Create workflow
@@ -75,6 +84,7 @@ POST   /api/workflows/:id/test  # Test workflow execution
 ```
 
 ### Analytics & Insights
+
 ```
 POST   /api/analysis/responses  # Analyze conversation responses
 GET    /api/analysis/metrics   # Get agent performance metrics
@@ -83,6 +93,7 @@ GET    /api/analysis/metrics   # Get agent performance metrics
 ## Architecture
 
 ### Service Structure
+
 ```
 src/
 ├── config/           # Database and service configuration
@@ -107,45 +118,49 @@ src/
 ### Key Components
 
 #### OpenAI Integration
+
 ```typescript
 // Intelligent response generation with retry logic
 const response = await generateOpenAIResponse({
   prompt: systemPrompt,
   messages: conversationHistory,
-  model: 'gpt-4o-mini',
+  model: "gpt-4o-mini",
   temperature: 0.7,
-  maxTokens: 1000
-})
+  maxTokens: 1000,
+});
 ```
 
 #### Workflow Engine
+
 ```typescript
 // Event-driven automation
 const workflowResults = await executeWorkflowsForTrigger(
-  'conversation_started',
+  "conversation_started",
   {
     conversationId,
     agentId,
     userId,
-    message: userMessage
-  }
-)
+    message: userMessage,
+  },
+);
 ```
 
 #### Voice Agent Dispatch
+
 ```typescript
 // LiveKit room management for voice calls
 const roomToken = await generateLiveKitToken({
   identity: `user-${userId}`,
   roomName: conversationId,
   canPublish: true,
-  canSubscribe: true
-})
+  canSubscribe: true,
+});
 ```
 
 ## Data Flow
 
 ### Conversation Processing
+
 1. **Message received** → Chat Service stores in MongoDB
 2. **Intent analysis** → Agent Service analyzes user intent
 3. **Response generation** → OpenAI generates contextual reply
@@ -153,6 +168,7 @@ const roomToken = await generateLiveKitToken({
 5. **Contact extraction** → Automatic lead capture from messages
 
 ### Voice Call Flow
+
 1. **Call initiated** → Frontend requests LiveKit token
 2. **Token generated** → Agent Service creates secure room access
 3. **Agent dispatched** → Voice Agent Service joins room
@@ -162,6 +178,7 @@ const roomToken = await generateLiveKitToken({
 ## Configuration
 
 ### Environment Variables
+
 ```bash
 # OpenAI
 OPENAI_API_KEY=sk-your-key
@@ -183,6 +200,7 @@ SENDGRID_API_KEY=your-sendgrid-key
 ## Development
 
 ### Local Setup
+
 ```bash
 cd services/agent
 pnpm install
@@ -190,6 +208,7 @@ pnpm dev
 ```
 
 ### Testing Endpoints
+
 ```bash
 # Health check
 curl http://localhost:4002/health
@@ -203,48 +222,54 @@ curl -X POST http://localhost:4002/api/agents \
 ### Key Development Patterns
 
 #### Error Handling
+
 ```typescript
 try {
-  const result = await riskyOperation()
-  return { success: true, data: result }
+  const result = await riskyOperation();
+  return { success: true, data: result };
 } catch (error) {
-  logger.error('Operation failed', { error: error.message })
-  return handleError(error, res)
+  logger.error("Operation failed", { error: error.message });
+  return handleError(error, res);
 }
 ```
 
 #### Database Operations
+
 ```typescript
 // Always use company-scoped queries
 const agents = await supabase
-  .from('agent_configs')
-  .select('*')
-  .eq('company_id', companyId)
+  .from("agent_configs")
+  .select("*")
+  .eq("company_id", companyId);
 ```
 
 #### Workflow Triggers
+
 ```typescript
 // Define trigger conditions
 const triggers = [
-  { event: 'conversation_started', conditions: {} },
-  { event: 'purchase_intent', conditions: { confidence: '>0.8' } }
-]
+  { event: "conversation_started", conditions: {} },
+  { event: "purchase_intent", conditions: { confidence: ">0.8" } },
+];
 ```
 
 ## Monitoring & Debugging
 
 ### Health Checks
+
 - **GET /health** - Service availability
 - **Database connectivity** - Supabase connection status
 - **External APIs** - OpenAI, LiveKit reachability
 
 ### Logging
+
 - **Structured logging** with Winston
 - **Error tracking** with Sentry
 - **Performance metrics** for response times
 - **Audit trails** for sensitive operations
 
 ### Common Issues
+
 - **OpenAI rate limits** - Automatic retry with exponential backoff
 - **LiveKit connection errors** - Token validation and regeneration
 - **Workflow execution failures** - Detailed error logging and recovery
@@ -253,6 +278,7 @@ const triggers = [
 ## Dependencies
 
 ### Core Dependencies
+
 - **@supabase/supabase-js** - Database and auth
 - **openai** - AI response generation
 - **livekit-server-sdk** - Voice/WebRTC integration
@@ -261,6 +287,7 @@ const triggers = [
 - **winston** - Structured logging
 
 ### Development Dependencies
+
 - **typescript** - Type safety
 - **tsx** - Development server
 - **express-rate-limit** - API abuse prevention
