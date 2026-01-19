@@ -3,29 +3,29 @@ name: CI/CD Agent Service
 on:
   push:
     paths:
-      - 'services/agent/**'
-      - 'shared/**'
+      - "services/agent/**"
+      - "shared/**"
     branches:
       - main
       - develop
   pull_request:
     paths:
-      - 'services/agent/**'
-      - 'shared/**'
+      - "services/agent/**"
+      - "shared/**"
     branches:
       - main
       - develop
   workflow_dispatch:
 
 env:
-  NODE_VERSION: '20'
-  PNPM_VERSION: '8.15.0'
+  NODE_VERSION: "20"
+  PNPM_VERSION: "8.15.0"
 
 jobs:
   build-and-test:
     name: Build and Test
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -39,7 +39,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -61,4 +61,3 @@ jobs:
             exit 1
           fi
           echo "✅ Build successful: dist/index.js found"
-
