@@ -3,14 +3,16 @@ import path from "path";
 
 // Bundle analyzer (conditional import for TypeScript)
 let withBundleAnalyzer: (config: NextConfig) => NextConfig = (config) => config;
-if (process.env.ANALYZE === 'true') {
+if (process.env.ANALYZE === "true") {
   try {
-    const bundleAnalyzer = require('@next/bundle-analyzer');
+    const bundleAnalyzer = require("@next/bundle-analyzer");
     withBundleAnalyzer = bundleAnalyzer({
       enabled: true,
     });
   } catch (error) {
-    console.warn('Bundle analyzer not available. Install @next/bundle-analyzer to use it.');
+    console.warn(
+      "Bundle analyzer not available. Install @next/bundle-analyzer to use it.",
+    );
   }
 }
 
@@ -23,7 +25,7 @@ const nextConfig: NextConfig = {
   // Problem: Turbopack finds pnpm-lock.yaml at monorepo root (../pnpm-lock.yaml)
   // and incorrectly infers the monorepo root as the project root
   // Solution: Explicitly set root to frontend/ where Next.js package actually is
-  // 
+  //
   // Even with --webpack flag, Next.js 16.0.3 still validates Turbopack config
   // So we must set this correctly even when using webpack
   turbopack: {
@@ -45,22 +47,22 @@ const nextConfig: NextConfig = {
     instrumentationHook: true,
   },
   // Transpile shared package for Next.js
-  transpilePackages: ['@syntera/shared'],
+  transpilePackages: ["@syntera/shared"],
   // Image optimization configuration
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**.supabase.co',
-        pathname: '/storage/v1/object/public/**',
+        protocol: "https",
+        hostname: "**.supabase.co",
+        pathname: "/storage/v1/object/public/**",
       },
       {
-        protocol: 'https',
-        hostname: '**.supabase.in',
-        pathname: '/storage/v1/object/public/**',
+        protocol: "https",
+        hostname: "**.supabase.in",
+        pathname: "/storage/v1/object/public/**",
       },
     ],
-    formats: ['image/avif', 'image/webp'],
+    formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
@@ -76,94 +78,94 @@ const nextConfig: NextConfig = {
         tls: false,
         fs: false,
         child_process: false,
-      }
-      
+      };
+
       // Exclude server-only packages from client bundle
-      config.externals = config.externals || []
+      config.externals = config.externals || [];
       config.externals.push({
-        'ioredis': 'commonjs ioredis',
-        'mongoose': 'commonjs mongoose',
-      })
+        ioredis: "commonjs ioredis",
+        mongoose: "commonjs mongoose",
+      });
 
       // CRITICAL: Aggressive bundle splitting for better code splitting
       if (config.optimization) {
         config.optimization.splitChunks = {
-          chunks: 'all',
+          chunks: "all",
           minSize: 20000,
           maxSize: 244000, // ~240KB max chunk size
           cacheGroups: {
             // Framework chunk (React, React DOM, Next.js core)
             framework: {
               test: /[\\/]node_modules[\\/](react|react-dom|scheduler|next)[\\/]/,
-              name: 'framework',
+              name: "framework",
               priority: 40,
               enforce: true,
             },
             // React Query (used heavily but can be lazy loaded)
             reactQuery: {
               test: /[\\/]node_modules[\\/]@tanstack[\\/]react-query/,
-              name: 'react-query',
+              name: "react-query",
               priority: 30,
               reuseExistingChunk: true,
             },
             // Radix UI components (large but used across app)
             radixUI: {
               test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
-              name: 'radix-ui',
+              name: "radix-ui",
               priority: 25,
               reuseExistingChunk: true,
             },
             // Framer Motion (large, should be lazy loaded)
             framerMotion: {
               test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
-              name: 'framer-motion',
+              name: "framer-motion",
               priority: 20,
               reuseExistingChunk: true,
             },
             // React Flow (already lazy loaded, but ensure it's separate)
             reactFlow: {
               test: /[\\/]node_modules[\\/](reactflow|@reactflow)[\\/]/,
-              name: 'reactflow',
+              name: "reactflow",
               priority: 20,
               reuseExistingChunk: true,
             },
             // LiveKit (heavy, only used in voice call widget)
             livekit: {
               test: /[\\/]node_modules[\\/]livekit-client[\\/]/,
-              name: 'livekit',
+              name: "livekit",
               priority: 20,
               reuseExistingChunk: true,
             },
             // Socket.io (used in chat)
             socketio: {
               test: /[\\/]node_modules[\\/]socket\.io-client[\\/]/,
-              name: 'socketio',
+              name: "socketio",
               priority: 20,
               reuseExistingChunk: true,
             },
             // Supabase (used across app)
             supabase: {
               test: /[\\/]node_modules[\\/]@supabase[\\/]/,
-              name: 'supabase',
+              name: "supabase",
               priority: 20,
               reuseExistingChunk: true,
             },
             // Large utility libraries (split individually)
             dateFns: {
               test: /[\\/]node_modules[\\/]date-fns[\\/]/,
-              name: 'date-fns',
+              name: "date-fns",
               priority: 15,
               reuseExistingChunk: true,
             },
             zod: {
               test: /[\\/]node_modules[\\/]zod[\\/]/,
-              name: 'zod',
+              name: "zod",
               priority: 15,
               reuseExistingChunk: true,
             },
             lucide: {
               test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
-              name: 'lucide-react',
+              name: "lucide-react",
               priority: 15,
               reuseExistingChunk: true,
             },
@@ -172,11 +174,15 @@ const nextConfig: NextConfig = {
               test: /[\\/]node_modules[\\/]/,
               name(module: any) {
                 // Extract package name from path
-                const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)?.[1]
-                if (!packageName) return 'vendor'
+                const packageName = module.context.match(
+                  /[\\/]node_modules[\\/](.*?)([\\/]|$)/,
+                )?.[1];
+                if (!packageName) return "vendor";
                 // Create smaller chunks for individual packages
-                const sanitized = packageName.replace('@', '').replace('/', '-')
-                return `vendor-${sanitized}`
+                const sanitized = packageName
+                  .replace("@", "")
+                  .replace("/", "-");
+                return `vendor-${sanitized}`;
               },
               priority: 10,
               minChunks: 1, // Changed from 2 to split more aggressively
@@ -189,10 +195,10 @@ const nextConfig: NextConfig = {
               reuseExistingChunk: true,
             },
           },
-        }
+        };
       }
     }
-    return config
+    return config;
   },
 };
 
