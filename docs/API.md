@@ -9,12 +9,14 @@ This document provides comprehensive API documentation for the Syntera platform,
 All API endpoints require authentication. Syntera uses Supabase Auth with JWT tokens.
 
 ### Headers Required:
+
 ```
 Authorization: Bearer <supabase-jwt-token>
 Content-Type: application/json
 ```
 
 ### Company Context:
+
 All endpoints are scoped to the authenticated user's company via Row Level Security.
 
 ---
@@ -22,11 +24,13 @@ All endpoints are scoped to the authenticated user's company via Row Level Secur
 ## 🤖 Agent Management APIs
 
 ### Create Agent
+
 ```http
 POST /api/agents
 ```
 
 **Request Body:**
+
 ```json
 {
   "name": "Customer Support Agent",
@@ -44,6 +48,7 @@ POST /api/agents
 ```
 
 **Response:**
+
 ```json
 {
   "id": "uuid",
@@ -55,11 +60,13 @@ POST /api/agents
 ```
 
 ### List Company Agents
+
 ```http
 GET /api/agents
 ```
 
 **Response:**
+
 ```json
 {
   "agents": [
@@ -76,11 +83,13 @@ GET /api/agents
 ```
 
 ### Update Agent
+
 ```http
 PATCH /api/agents/:id
 ```
 
 **Request Body:** (partial updates supported)
+
 ```json
 {
   "name": "Updated Agent Name",
@@ -89,6 +98,7 @@ PATCH /api/agents/:id
 ```
 
 ### Delete Agent
+
 ```http
 DELETE /api/agents/:id
 ```
@@ -98,16 +108,19 @@ DELETE /api/agents/:id
 ## 💬 Conversation APIs
 
 ### List Conversations
+
 ```http
 GET /api/conversations?limit=20&offset=0&status=ended
 ```
 
 **Query Parameters:**
+
 - `limit`: Number of conversations (default: 20, max: 50)
 - `offset`: Pagination offset (default: 0)
 - `status`: Filter by status (`active`, `ended`, `archived`)
 
 **Response:**
+
 ```json
 {
   "conversations": [
@@ -130,11 +143,13 @@ GET /api/conversations?limit=20&offset=0&status=ended
 ```
 
 ### Get Conversation Messages
+
 ```http
 GET /api/conversations/:id/messages
 ```
 
 **Response:**
+
 ```json
 {
   "messages": [
@@ -161,11 +176,13 @@ GET /api/conversations/:id/messages
 ```
 
 ### Send Message
+
 ```http
 POST /api/conversations/:id/messages
 ```
 
 **Request Body:**
+
 ```json
 {
   "content": "User message here",
@@ -185,11 +202,13 @@ POST /api/conversations/:id/messages
 ## 📊 Analytics APIs
 
 ### Overview Metrics
+
 ```http
 GET /api/analytics/overview?startDate=2024-01-01&endDate=2024-01-31
 ```
 
 **Response:**
+
 ```json
 {
   "totalConversations": 1250,
@@ -201,11 +220,13 @@ GET /api/analytics/overview?startDate=2024-01-01&endDate=2024-01-31
 ```
 
 ### Conversation Analytics
+
 ```http
 GET /api/analytics/conversations?startDate=2024-01-01&endDate=2024-01-31&groupBy=day
 ```
 
 **Response:**
+
 ```json
 {
   "timeline": [
@@ -229,11 +250,13 @@ GET /api/analytics/conversations?startDate=2024-01-01&endDate=2024-01-31&groupBy
 ```
 
 ### Cost Analytics
+
 ```http
 GET /api/analytics/costs?startDate=2024-01-01&endDate=2024-01-31
 ```
 
 **Response:**
+
 ```json
 {
   "totalTokens": 1500000,
@@ -242,11 +265,13 @@ GET /api/analytics/costs?startDate=2024-01-01&endDate=2024-01-31
 ```
 
 ### Agent Performance
+
 ```http
 GET /api/analytics/agents?startDate=2024-01-01&endDate=2024-01-31
 ```
 
 **Response:**
+
 ```json
 {
   "agents": [
@@ -266,11 +291,13 @@ GET /api/analytics/agents?startDate=2024-01-01&endDate=2024-01-31
 ## 👥 CRM APIs
 
 ### List Contacts
+
 ```http
 GET /api/crm/contacts?limit=20&offset=0&search=john
 ```
 
 **Response:**
+
 ```json
 {
   "contacts": [
@@ -289,11 +316,13 @@ GET /api/crm/contacts?limit=20&offset=0&search=john
 ```
 
 ### Create Contact
+
 ```http
 POST /api/crm/contacts
 ```
 
 **Request Body:**
+
 ```json
 {
   "email": "jane@example.com",
@@ -305,11 +334,13 @@ POST /api/crm/contacts
 ```
 
 ### List Deals
+
 ```http
 GET /api/crm/deals?stage=qualified&limit=20
 ```
 
 **Response:**
+
 ```json
 {
   "deals": [
@@ -323,7 +354,7 @@ GET /api/crm/deals?stage=qualified&limit=20
       "expected_close_date": "2024-02-01"
     }
   ],
-  "total": 45 
+  "total": 45
 }
 ```
 
@@ -332,17 +363,20 @@ GET /api/crm/deals?stage=qualified&limit=20
 ## 📚 Knowledge Base APIs
 
 ### Upload Document
+
 ```http
 POST /api/knowledge-base/upload
 Content-Type: multipart/form-data
 ```
 
 **Form Data:**
+
 - `file`: PDF, DOCX, or TXT file
 - `title`: Document title
 - `description`: Optional description
 
 **Response:**
+
 ```json
 {
   "id": "uuid",
@@ -354,11 +388,13 @@ Content-Type: multipart/form-data
 ```
 
 ### Search Knowledge Base
+
 ```http
 POST /api/knowledge-base/search
 ```
 
 **Request Body:**
+
 ```json
 {
   "query": "refund policy",
@@ -368,6 +404,7 @@ POST /api/knowledge-base/search
 ```
 
 **Response:**
+
 ```json
 {
   "results": [
@@ -386,11 +423,13 @@ POST /api/knowledge-base/search
 ```
 
 ### List Documents
+
 ```http
 GET /api/knowledge-base
 ```
 
 **Response:**
+
 ```json
 {
   "documents": [
@@ -411,11 +450,13 @@ GET /api/knowledge-base
 ## 🔄 Workflow APIs
 
 ### List Workflows
+
 ```http
 GET /api/workflows
 ```
 
 **Response:**
+
 ```json
 {
   "workflows": [
@@ -432,11 +473,13 @@ GET /api/workflows
 ```
 
 ### Create Workflow
+
 ```http
 POST /api/workflows
 ```
 
 **Request Body:**
+
 ```json
 {
   "name": "Support Escalation",
@@ -451,11 +494,13 @@ POST /api/workflows
 ```
 
 ### Test Workflow
+
 ```http
 POST /api/workflows/:id/test
 ```
 
 **Request Body:**
+
 ```json
 {
   "testData": {
@@ -466,11 +511,13 @@ POST /api/workflows/:id/test
 ```
 
 ### Get Workflow Executions
+
 ```http
 GET /api/workflows/:id/executions?limit=10
 ```
 
 **Response:**
+
 ```json
 {
   "executions": [
@@ -490,21 +537,25 @@ GET /api/workflows/:id/executions?limit=10
 ## 🔔 Notification APIs
 
 ### Get Notifications
+
 ```http
 GET /api/notifications?limit=20&read=false
 ```
 
 ### Mark as Read
+
 ```http
 POST /api/notifications/:id/read
 ```
 
 ### Mark All as Read
+
 ```http
 POST /api/notifications/read-all
 ```
 
 ### Get Unread Count
+
 ```http
 GET /api/notifications/unread-count
 ```
@@ -514,6 +565,7 @@ GET /api/notifications/unread-count
 ## 🌐 Public APIs
 
 ### External Agent Access
+
 ```http
 GET /public/agents/:id
 POST /public/conversations
@@ -521,11 +573,13 @@ POST /public/conversations/:id/messages
 ```
 
 ### LiveKit Integration
+
 ```http
 GET /public/livekit/token
 ```
 
 ### Voice Bot Deployment
+
 ```http
 POST /public/voice-bot/deploy
 ```
@@ -545,6 +599,7 @@ All APIs return standardized error responses:
 ```
 
 ### Common HTTP Status Codes:
+
 - `200`: Success
 - `201`: Created
 - `400`: Bad Request
@@ -555,6 +610,7 @@ All APIs return standardized error responses:
 - `500`: Internal Server Error
 
 ### Rate Limiting:
+
 - 1000 requests per hour per user
 - Rate limit headers included in responses
 
@@ -573,6 +629,7 @@ All APIs return standardized error responses:
 ## 📞 Support
 
 For API integration questions or issues:
+
 - Check the error response details
 - Review the request/response examples above
 - Test with the live demo at https://syntera-tau.vercel.app/
