@@ -11,6 +11,7 @@ This document outlines the system architecture, design decisions, and technical 
 Syntera is a multi-tenant SaaS platform that enables enterprises to deploy AI-powered customer service agents. The system handles real-time conversations across multiple channels with robust security measures.
 
 ### Core Capabilities
+
 - **Multi-channel AI conversations** (chat, voice)
 - **Intelligent agent orchestration** with workflow automation
 - **Knowledge bases** with RAG capabilities
@@ -96,6 +97,7 @@ graph TB
 ```
 
 **Key Design Principles:**
+
 - **Microservices architecture** for scalability and maintainability
 - **Event-driven communication** between services
 - **Multi-tenant data isolation** at all layers
@@ -107,6 +109,7 @@ graph TB
 ## 🔄 Data Flow Architecture
 
 ### Conversation Flow
+
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -133,6 +136,7 @@ sequenceDiagram
 ```
 
 ### Authentication Flow
+
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -180,6 +184,7 @@ frontend/
 ```
 
 **Key Patterns:**
+
 - **Server Components** for data fetching
 - **Client Components** for interactivity
 - **API Routes** as backend-for-frontend
@@ -188,6 +193,7 @@ frontend/
 ### Backend Services Architecture
 
 #### Agent Service (Node.js/TypeScript)
+
 ```
 services/agent/
 ├── src/
@@ -204,6 +210,7 @@ services/agent/
 ```
 
 #### Chat Service (Node.js/TypeScript)
+
 ```
 services/chat/
 ├── src/
@@ -215,6 +222,7 @@ services/chat/
 ```
 
 #### Knowledge Base Service (Node.js/TypeScript)
+
 ```
 services/knowledge-base/
 ├── src/
@@ -227,6 +235,7 @@ services/knowledge-base/
 ```
 
 #### Voice Agent Service (Python)
+
 ```
 services/voice-agent/
 ├── src/
@@ -245,6 +254,7 @@ services/voice-agent/
 ### Database Strategy
 
 **PostgreSQL (Supabase)** - Business Data
+
 - **Agent configurations** (company-scoped)
 - **CRM data** (contacts, deals)
 - **User management** (multi-tenant users)
@@ -252,29 +262,34 @@ services/voice-agent/
 - **Analytics metadata**
 
 **Why PostgreSQL:**
+
 - ACID transactions for business data
 - Advanced querying for analytics
 - Row Level Security for multi-tenancy
 - JSONB for flexible metadata
 
 **MongoDB** - Conversation Data
+
 - **Message history** (high-volume writes)
 - **Conversation threads** (flexible schemas)
 - **Real-time chat data**
 
 **Why MongoDB:**
+
 - High write throughput for messages
 - Flexible document schemas
 - Horizontal scaling for chat data
 - Fast queries for conversation history
 
 **Redis** - Caching & Sessions
+
 - **Session management**
 - **Rate limiting data**
 - **Temporary caches**
 - **Real-time pub/sub**
 
 **Pinecone** - Vector Search
+
 - **Document embeddings**
 - **Semantic search**
 - **RAG context retrieval**
@@ -332,6 +347,7 @@ graph TD
 ```
 
 **Security Layers:**
+
 1. **Supabase Authentication** - JWT-based auth
 2. **Row Level Security** - Database-level isolation
 3. **API Key Authentication** - External integrations
@@ -342,11 +358,13 @@ graph TD
 ### Multi-Tenant Isolation
 
 **Database Level:**
+
 - All tables include `company_id` foreign keys
 - RLS policies enforce company data access
 - No cross-company data leakage
 
 **Application Level:**
+
 - JWT tokens include company context
 - All queries filtered by company scope
 - Service-level validation of company access
@@ -387,17 +405,20 @@ graph LR
 ### Performance Optimizations
 
 **Database Optimization:**
+
 - Strategic indexing on frequently queried fields
 - Connection pooling for database connections
 - Read replicas for analytics queries
 - Query optimization and prepared statements
 
 **Caching Strategy:**
+
 - Redis for session data and temporary caches
 - Application-level caching for expensive operations
 - CDN for static assets and API responses
 
 **Real-Time Optimization:**
+
 - WebSocket connection pooling
 - Message queuing for high-throughput scenarios
 - Load balancing across LiveKit servers
@@ -479,32 +500,44 @@ graph TB
 ## 🔧 Technology Choices & Rationale
 
 ### Frontend Framework
+
 **Next.js 16 with App Router**
+
 - **Why:** Server components for performance, App Router for better UX
 - **Benefits:** SEO optimization, fast loading, modern React patterns
 
 ### Backend Runtime
+
 **Node.js with TypeScript**
+
 - **Why:** JavaScript ecosystem consistency, strong typing
 - **Benefits:** Developer productivity, type safety, rich ecosystem
 
 ### Voice Agent Runtime
+
 **Python with LiveKit**
+
 - **Why:** LiveKit's Python SDK is most mature, asyncio for real-time
 - **Benefits:** Better voice processing, async performance
 
 ### Database Choices
+
 **PostgreSQL + MongoDB + Redis**
+
 - **Why:** Right tool for each workload type
 - **Benefits:** Performance optimization, cost efficiency
 
 ### Real-Time Infrastructure
+
 **LiveKit + Socket.io**
+
 - **Why:** LiveKit for WebRTC, Socket.io for messaging
 - **Benefits:** Production-ready, scalable architecture
 
 ### AI Integration
+
 **OpenAI GPT-4 + Pinecone**
+
 - **Why:** Industry standard for quality and RAG capabilities
 - **Benefits:** Production reliability, advanced features
 
@@ -513,16 +546,19 @@ graph TB
 ## 📈 Monitoring & Observability
 
 ### Application Monitoring
+
 - **Error Tracking:** Sentry for all services
 - **Performance Monitoring:** Custom metrics collection
 - **API Monitoring:** Response times, error rates, throughput
 
 ### Infrastructure Monitoring
+
 - **Service Health:** Railway deployment monitoring
 - **Database Performance:** Query performance tracking
 - **External API Usage:** Rate limiting and quota monitoring
 
 ### Business Metrics
+
 - **User Engagement:** Conversation metrics, response times
 - **System Performance:** Uptime, latency, error rates
 - **AI Performance:** Token usage, response quality metrics
@@ -532,6 +568,7 @@ graph TB
 ## 🔄 Development Workflow
 
 ### Local Development
+
 ```mermaid
 graph LR
     A[Developer] --> B[pnpm install]
@@ -542,6 +579,7 @@ graph LR
 ```
 
 ### CI/CD Pipeline
+
 ```mermaid
 graph LR
     A[Git Push] --> B[GitHub Actions]
@@ -553,6 +591,7 @@ graph LR
 ```
 
 ### Environment Management
+
 - **Local:** All services run via Docker Compose
 - **Development:** Shared development environment
 - **Staging:** Production-like environment for testing
