@@ -7,6 +7,7 @@ Syntera is a portfolio project demonstrating production-quality implementation o
 **Portfolio Focus**: This project showcases scalable architecture, real-time communication patterns, RAG implementations, and enterprise-grade security practices.
 
 **Key Features:**
+
 - **Multi-channel AI conversations** with intelligent routing
 - **Enterprise knowledge bases** with RAG for accurate responses
 - **Workflow automation** with custom triggers and actions
@@ -15,12 +16,12 @@ Syntera is a portfolio project demonstrating production-quality implementation o
 
 ## ⚡ Core Features
 
-| Category | Capabilities |
-|----------|-------------|
+| Category          | Capabilities                                                           |
+| ----------------- | ---------------------------------------------------------------------- |
 | **Conversations** | Multi-channel (chat, voice, email), context-aware, intelligent routing |
-| **AI Engine** | GPT-4 with custom prompts, RAG knowledge bases, workflow automation |
-| **Enterprise** | Multi-tenant SaaS, row-level security, production monitoring |
-| **Business** | CRM integration, analytics dashboard, API-first design |
+| **AI Engine**     | GPT-4 with custom prompts, RAG knowledge bases, workflow automation    |
+| **Enterprise**    | Multi-tenant SaaS, row-level security, production monitoring           |
+| **Business**      | CRM integration, analytics dashboard, API-first design                 |
 
 ## 🏗️ Architecture Overview
 
@@ -74,6 +75,7 @@ graph TB
 ## 🎯 Technical Implementation
 
 ### Key Decisions
+
 - **TypeScript**: Type safety across the entire stack
 - **Microservices**: Independent scaling for different workloads
 - **Dual Database**: PostgreSQL for business data, MongoDB for conversations
@@ -81,6 +83,7 @@ graph TB
 - **Pinecone**: Vector search for RAG knowledge retrieval
 
 ### Technical Features
+
 - **Multi-tenancy**: Row-level security with company isolation
 - **Error Handling**: Sentry monitoring across all services
 - **Security**: JWT auth, rate limiting, input validation
@@ -103,7 +106,7 @@ pnpm run dev:all
 
 ## 📊 Live Demo
 
-**Try the platform**: 
+**Try the platform**:
 
 - Interactive chat with AI agents
 - Voice conversations with LiveKit
@@ -112,13 +115,13 @@ pnpm run dev:all
 
 ## 📚 Documentation
 
-| Document | Purpose |
-|----------|---------|
-| [📖 Architecture](docs/ARCHITECTURE.md) | System design and data flow |
-| [🔒 Security](docs/SECURITY.md) | Security measures and compliance |
-| [🚀 Deployment](docs/DEPLOYMENT.md) | Production setup guide |
-| [🔧 API Reference](docs/API.md) | Complete API documentation |
-| [⚙️ Workflows](docs/WORKFLOWS.md) | Automation and triggers |
+| Document                                | Purpose                          |
+| --------------------------------------- | -------------------------------- |
+| [📖 Architecture](docs/ARCHITECTURE.md) | System design and data flow      |
+| [🔒 Security](docs/SECURITY.md)         | Security measures and compliance |
+| [🚀 Deployment](docs/DEPLOYMENT.md)     | Production setup guide           |
+| [🔧 API Reference](docs/API.md)         | Complete API documentation       |
+| [⚙️ Workflows](docs/WORKFLOWS.md)       | Automation and triggers          |
 
 ## 💰 Potential Business Impact
 
@@ -129,13 +132,13 @@ pnpm run dev:all
 
 ## 🛠️ Technology Stack
 
-| Layer | Technologies |
-|-------|-------------|
-| **Frontend** | Next.js 16, React 18, Tailwind CSS, Shadcn/ui |
-| **Backend** | Node.js, Express, TypeScript, Socket.io |
-| **AI** | OpenAI GPT-4, Pinecone, LiveKit Agents |
-| **Database** | PostgreSQL, MongoDB, Redis |
-| **Infrastructure** | Railway, Vercel, Docker |
+| Layer              | Technologies                                  |
+| ------------------ | --------------------------------------------- |
+| **Frontend**       | Next.js 16, React 18, Tailwind CSS, Shadcn/ui |
+| **Backend**        | Node.js, Express, TypeScript, Socket.io       |
+| **AI**             | OpenAI GPT-4, Pinecone, LiveKit Agents        |
+| **Database**       | PostgreSQL, MongoDB, Redis                    |
+| **Infrastructure** | Railway, Vercel, Docker                       |
 
 ## 📄 License
 
