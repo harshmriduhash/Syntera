@@ -22,12 +22,14 @@ Git                            # Version control
 ### Development Environment Setup
 
 #### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/harshmriduhash/syntera.git
 cd syntera
 ```
 
 #### 2. Install Dependencies
+
 ```bash
 # Install all workspace dependencies
 pnpm install
@@ -37,6 +39,7 @@ pnpm run build:all
 ```
 
 #### 3. Environment Configuration
+
 ```bash
 # Copy environment template
 cp .env.example .env.local
@@ -49,6 +52,7 @@ cp .env.example .env.local
 ```
 
 #### 4. Start Development Services
+
 ```bash
 # Start all services locally
 pnpm run dev:all
@@ -62,6 +66,7 @@ pnpm run dev:voice-agent  # http://localhost:4008
 ```
 
 #### 5. Verify Setup
+
 ```bash
 # Run health checks
 curl http://localhost:3000/api/health
@@ -82,6 +87,7 @@ curl http://localhost:4008/health
 **ESLint Configuration**: Basic Next.js ESLint setup with TypeScript support.
 
 **Basic Rules**:
+
 - TypeScript compilation errors must be resolved
 - No unused variables in committed code
 - Consistent code formatting (Prettier recommended)
@@ -89,6 +95,7 @@ curl http://localhost:4008/health
 #### Python Standards
 
 **Voice Agent Code Style:**
+
 ```python
 # Use type hints
 def process_message(message: str, context: dict) -> dict:
@@ -105,6 +112,7 @@ def process_message(message: str, context: dict) -> dict:
 ```
 
 **Standards:**
+
 - Type hints for all function parameters and return values
 - Google-style docstrings
 - Black code formatter (line length: 88 characters)
@@ -113,6 +121,7 @@ def process_message(message: str, context: dict) -> dict:
 ### Naming Conventions
 
 #### Files & Directories
+
 ```
 📁 services/agent/src/routes/
 ├── agents.ts          # Resource name (plural)
@@ -126,6 +135,7 @@ def process_message(message: str, context: dict) -> dict:
 ```
 
 #### Variables & Functions
+
 ```typescript
 // ✅ Good naming
 const userProfile = { ... };
@@ -143,6 +153,7 @@ function check(config) { ... }
 ### Commit Message Conventions
 
 #### Format
+
 ```
 type(scope): description
 
@@ -152,6 +163,7 @@ type(scope): description
 ```
 
 #### Types
+
 - **feat**: New feature
 - **fix**: Bug fix
 - **docs**: Documentation changes
@@ -161,6 +173,7 @@ type(scope): description
 - **chore**: Maintenance tasks
 
 #### Examples
+
 ```bash
 # ✅ Good commit messages
 feat(agent): add voice settings configuration
@@ -183,6 +196,7 @@ changes
 **Current State**: No formal test suite implemented yet.
 
 **Future Plans**:
+
 - Unit tests for business logic functions
 - Integration tests for API endpoints
 - Load testing for performance validation
@@ -193,6 +207,7 @@ changes
 ## 🔄 Git Workflow
 
 ### Branch Naming
+
 ```
 feature/add-voice-settings
 fix/conversation-pagination
@@ -203,16 +218,19 @@ refactor/agent-service
 ### Pull Request Process
 
 #### 1. Create Feature Branch
+
 ```bash
 git checkout -b feature/your-feature-name
 ```
 
 #### 2. Make Changes
+
 - Write tests for new functionality
 - Update documentation if needed
 - Ensure all tests pass
 
 #### 3. Commit Changes
+
 ```bash
 git add .
 git commit -m "feat: add voice settings to agent configuration
@@ -225,6 +243,7 @@ Closes #123"
 ```
 
 #### 4. Push & Create PR
+
 ```bash
 git push origin feature/your-feature-name
 # Create pull request on GitHub
@@ -233,6 +252,7 @@ git push origin feature/your-feature-name
 ### Pull Request Guidelines
 
 **Include in PR description:**
+
 - Clear description of changes made
 - Any breaking changes or migrations needed
 - Testing approach used
@@ -243,6 +263,7 @@ git push origin feature/your-feature-name
 ## 🔍 Code Review Process
 
 ### Basic Review Checklist
+
 - Code compiles without TypeScript errors
 - No obvious security issues
 - Basic functionality testing completed
@@ -255,6 +276,7 @@ git push origin feature/your-feature-name
 ### API Design
 
 #### RESTful Conventions
+
 ```typescript
 // ✅ Good API design
 GET    /api/agents           // List agents
@@ -269,6 +291,7 @@ GET    /api/agents/:id/conversations    // Agent conversations
 ```
 
 #### Error Handling
+
 ```typescript
 // Standardized error responses
 interface ApiError {
@@ -291,6 +314,7 @@ interface ApiError {
 ### Database Practices
 
 #### Schema Design
+
 ```sql
 -- ✅ Good practices
 CREATE TABLE conversations (
@@ -308,6 +332,7 @@ CREATE INDEX idx_conversations_agent ON conversations(agent_id);
 ```
 
 #### Migration Scripts
+
 ```typescript
 // migration file naming: V1__create_agents_table.sql
 -- Up migration
@@ -320,15 +345,16 @@ DROP TABLE agents;
 ### Security Practices
 
 #### Input Validation
+
 ```typescript
 // Use Zod for runtime validation
-import { z } from 'zod';
+import { z } from "zod";
 
 const AgentSchema = z.object({
   name: z.string().min(1).max(100).trim(),
-  model: z.enum(['gpt-4o-mini', 'gpt-4-turbo']),
+  model: z.enum(["gpt-4o-mini", "gpt-4-turbo"]),
   temperature: z.number().min(0).max(2),
-  system_prompt: z.string().max(10000)
+  system_prompt: z.string().max(10000),
 });
 
 export function validateAgent(data: unknown) {
@@ -337,11 +363,16 @@ export function validateAgent(data: unknown) {
 ```
 
 #### Authentication Checks
+
 ```typescript
 // Always verify user context
-export async function requireCompany(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+export async function requireCompany(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction,
+) {
   if (!req.user?.company_id) {
-    return res.status(403).json({ error: 'Company access required' });
+    return res.status(403).json({ error: "Company access required" });
   }
   next();
 }
@@ -354,6 +385,7 @@ export async function requireCompany(req: AuthenticatedRequest, res: Response, n
 ### Bug Reports
 
 **Please include:**
+
 - Clear title describing the issue
 - Steps to reproduce
 - Expected vs actual behavior
@@ -364,6 +396,7 @@ export async function requireCompany(req: AuthenticatedRequest, res: Response, n
 ### Feature Requests
 
 **Please include:**
+
 - Clear description of the feature
 - Use case and business value
 - Proposed implementation approach
@@ -371,6 +404,7 @@ export async function requireCompany(req: AuthenticatedRequest, res: Response, n
 - Mockups or examples if applicable
 
 ### Issue Types
+
 - Bug reports with reproduction steps
 - Feature requests with use case description
 - Documentation improvements
@@ -406,6 +440,7 @@ By contributing to Syntera, you agree that your contributions will be licensed u
 ## 🙏 Recognition
 
 Contributors will be recognized in:
+
 - Repository contributor statistics
 - Release notes for significant contributions
 - Special mentions for outstanding contributions
