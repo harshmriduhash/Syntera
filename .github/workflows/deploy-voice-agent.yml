@@ -3,26 +3,26 @@ name: CI/CD Voice Agent Service
 on:
   push:
     paths:
-      - 'services/voice-agent/**'
+      - "services/voice-agent/**"
     branches:
       - main
       - develop
   pull_request:
     paths:
-      - 'services/voice-agent/**'
+      - "services/voice-agent/**"
     branches:
       - main
       - develop
   workflow_dispatch:
 
 env:
-  PYTHON_VERSION: '3.10'
+  PYTHON_VERSION: "3.10"
 
 jobs:
   build-and-test:
     name: Build and Test
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
+          cache: "pip"
 
       - name: Install dependencies
         working-directory: services/voice-agent
@@ -51,9 +51,3 @@ jobs:
         working-directory: services/voice-agent
         run: |
           python -c "import sys; sys.path.insert(0, 'src'); import main; import agent; import config; print('✅ All imports successful')"
-
-
-
-
-
-
