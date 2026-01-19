@@ -3,33 +3,33 @@ name: Deploy Widget to Cloudflare R2
 on:
   push:
     paths:
-      - 'widget/**'
-      - 'shared/**'
+      - "widget/**"
+      - "shared/**"
     branches:
       - main
   pull_request:
     paths:
-      - 'widget/**'
-      - 'shared/**'
+      - "widget/**"
+      - "shared/**"
     branches:
       - main
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version tag (e.g., v1.0.0) - optional, uses latest if not provided'
+        description: "Version tag (e.g., v1.0.0) - optional, uses latest if not provided"
         required: false
         type: string
 
 env:
-  NODE_VERSION: '20'
-  PNPM_VERSION: '8.15.0'
-  R2_BUCKET: 'syntera-widget'
+  NODE_VERSION: "20"
+  PNPM_VERSION: "8.15.0"
+  R2_BUCKET: "syntera-widget"
 
 jobs:
   build-and-deploy:
     name: Build and Deploy Widget
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,7 +43,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -75,12 +75,12 @@ jobs:
           wrangler r2 object put ${{ env.R2_BUCKET }}/widget.js \
             --file=dist/widget.js \
             --remote || (echo "❌ Failed to upload widget.js" && exit 1)
-          
+
           echo "📤 Uploading widget.css to R2..."
           wrangler r2 object put ${{ env.R2_BUCKET }}/widget.css \
             --file=dist/widget.css \
             --remote || (echo "❌ Failed to upload widget.css" && exit 1)
-          
+
           echo "✅ Deployment complete!"
 
       - name: Deploy versioned files (if version provided)
@@ -92,15 +92,15 @@ jobs:
         run: |
           VERSION_DIR="$VERSION"
           echo "📤 Uploading versioned files to R2 ($VERSION_DIR/)..."
-          
+
           wrangler r2 object put ${{ env.R2_BUCKET }}/$VERSION_DIR/widget.js \
             --file=dist/widget.js \
             --remote || (echo "❌ Failed to upload versioned widget.js" && exit 1)
-          
+
           wrangler r2 object put ${{ env.R2_BUCKET }}/$VERSION_DIR/widget.css \
             --file=dist/widget.css \
             --remote || (echo "❌ Failed to upload versioned widget.css" && exit 1)
-          
+
           echo "✅ Versioned deployment complete: $VERSION_DIR"
 
       - name: Deployment Summary
@@ -119,4 +119,3 @@ jobs:
             echo "- \`${{ github.event.inputs.version }}/widget.js\`" >> $GITHUB_STEP_SUMMARY
             echo "- \`${{ github.event.inputs.version }}/widget.css\`" >> $GITHUB_STEP_SUMMARY
           fi
-
