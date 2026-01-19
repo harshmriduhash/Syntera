@@ -7,6 +7,3 @@ ingress:
     service: http://localhost:4002
   # Catch-all rule (must be last)
   - service: http_status:404
-
-
-
