@@ -25,7 +25,7 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
-      - "5672:5672"   # AMQP port
+      - "5672:5672" # AMQP port
       - "15672:15672" # Management UI port
     environment:
       - RABBITMQ_DEFAULT_USER=guest
@@ -38,4 +38,5 @@ volumes:
   mongodb-data:
   redis-data:
   rabbitmq-data:
+
 
