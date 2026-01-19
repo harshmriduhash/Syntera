@@ -1,5 +1,5 @@
 ﻿packages:
-  - 'shared'
-  - 'services/*'
-  - 'frontend'
-  - 'widget'
+  - "shared"
+  - "services/*"
+  - "frontend"
+  - "widget"
