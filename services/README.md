@@ -38,28 +38,36 @@ graph TB
 ## Service Responsibilities
 
 ### 🤖 Agent Service (Port 4002)
+
 **AI orchestration and workflow execution.**
+
 - OpenAI GPT-4 integration with custom prompts
 - Workflow automation with custom triggers
 - Agent configuration and management
 - Response generation and optimization
 
 ### 💬 Chat Service (Port 4004)
+
 **Real-time messaging and conversation management.**
+
 - Socket.io for live chat connections
 - Message threading and history
 - Conversation state management
 - Agent response coordination
 
 ### 📚 Knowledge Base Service (Port 4005)
+
 **Document processing and retrieval-augmented generation.**
+
 - PDF/text document chunking
 - Pinecone vector embeddings
 - Semantic search capabilities
 - Document lifecycle management
 
 ### 🎤 Voice Agent Service (Port 4008)
+
 **Python-based voice AI with LiveKit WebRTC.**
+
 - LiveKit session management
 - Multi-language speech processing
 - Real-time voice interactions
@@ -80,12 +88,12 @@ cd services/voice-agent && python src/main.py --mode both
 
 ## API Endpoints
 
-| Service | Base URL | Primary Functions |
-|---------|----------|-------------------|
-| Agent | `/api/agents` | Agent CRUD, AI responses |
-| Chat | `/api/conversations` | Messages, real-time chat |
-| Knowledge Base | `/api/knowledge-base` | Document upload, search |
-| Voice Agent | WebSocket | LiveKit voice sessions |
+| Service        | Base URL              | Primary Functions        |
+| -------------- | --------------------- | ------------------------ |
+| Agent          | `/api/agents`         | Agent CRUD, AI responses |
+| Chat           | `/api/conversations`  | Messages, real-time chat |
+| Knowledge Base | `/api/knowledge-base` | Document upload, search  |
+| Voice Agent    | WebSocket             | LiveKit voice sessions   |
 
 ## Service Communication
 
