@@ -9,6 +9,7 @@ This guide covers complete deployment of Syntera from development to production,
 ## 🏗️ Architecture Overview
 
 ### Production Stack
+
 - **Frontend**: Vercel (Next.js with global CDN)
 - **Services**: Railway (Docker containers with managed databases)
 - **Database**: Supabase (PostgreSQL) + Railway MongoDB
@@ -17,6 +18,7 @@ This guide covers complete deployment of Syntera from development to production,
 - **Real-time**: LiveKit Cloud
 
 ### Infrastructure Diagram
+
 ```
 ┌─────────────────┐    ┌─────────────────┐
 │   Vercel Edge   │    │   Railway       │
@@ -54,6 +56,7 @@ External APIs: OpenAI, LiveKit, SendGrid, Twilio
 ## 🚀 Quick Start (Development)
 
 ### Prerequisites
+
 ```bash
 # Required tools
 Node.js 18+          # Frontend & services
@@ -63,12 +66,14 @@ Docker              # Local databases
 ```
 
 ### 1. Clone Repository
+
 ```bash
 git clone https://github.com/harshmriduhash/syntera.git
 cd syntera
 ```
 
 ### 2. Install Dependencies
+
 ```bash
 # Install all workspace dependencies
 pnpm install
@@ -78,6 +83,7 @@ pnpm run build:all
 ```
 
 ### 3. Environment Setup
+
 ```bash
 # Copy environment template
 cp .env.example .env.local
@@ -87,6 +93,7 @@ nano .env.local
 ```
 
 ### 4. Start Development Environment
+
 ```bash
 # Start all services locally
 pnpm run dev:all
@@ -100,6 +107,7 @@ pnpm run dev:voice-agent  # http://localhost:4008
 ```
 
 ### 5. Verify Installation
+
 ```bash
 # Check all services are running
 curl http://localhost:3000/api/health
@@ -116,6 +124,7 @@ curl http://localhost:4008/health
 ### Required Environment Variables
 
 #### Supabase (Database & Auth)
+
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
@@ -123,11 +132,13 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-key
 ```
 
 #### OpenAI (AI Models)
+
 ```bash
 OPENAI_API_KEY=sk-your-openai-key
 ```
 
 #### LiveKit (Real-time Voice/Video)
+
 ```bash
 LIVEKIT_URL=https://your-project.livekit.cloud
 LIVEKIT_API_KEY=your-livekit-key
@@ -135,6 +146,7 @@ LIVEKIT_API_SECRET=your-livekit-secret
 ```
 
 #### MongoDB (Conversations) - Provided by Railway
+
 ```bash
 # Railway automatically provides MongoDB
 # URI available in Railway environment variables
@@ -142,6 +154,7 @@ MONGODB_URI=${{MongoDB.MONGODB_URL}}
 ```
 
 #### Redis (Caching) - Provided by Railway
+
 ```bash
 # Railway automatically provides Redis
 # URL available in Railway environment variables
@@ -149,16 +162,17 @@ REDIS_URL=${{Redis.REDIS_URL}}
 ```
 
 #### Pinecone (Vector Search)
+
 ```bash
 PINECONE_API_KEY=your-pinecone-key
 PINECONE_INDEX_NAME=syntera-docs
 ```
 
 #### SendGrid (Email)
+
 ```bash
 SENDGRID_API_KEY=your-sendgrid-key
 ```
-
 
 ---
 
@@ -167,6 +181,7 @@ SENDGRID_API_KEY=your-sendgrid-key
 ### Frontend Deployment (Vercel)
 
 #### 1. Connect Repository
+
 ```bash
 # Install Vercel CLI
 npm install -g vercel
@@ -179,6 +194,7 @@ vercel link
 ```
 
 #### 2. Configure Build Settings
+
 ```json
 // vercel.json (already configured)
 {
@@ -190,6 +206,7 @@ vercel link
 ```
 
 #### 3. Set Environment Variables
+
 ```bash
 # In Vercel dashboard or CLI
 vercel env add NEXT_PUBLIC_SUPABASE_URL
@@ -199,6 +216,7 @@ vercel env add NEXT_PUBLIC_LIVEKIT_URL
 ```
 
 #### 4. Deploy
+
 ```bash
 vercel --prod
 ```
@@ -206,6 +224,7 @@ vercel --prod
 ### Backend Services Deployment (Railway)
 
 #### 1. Create Railway Project
+
 ```bash
 # Install Railway CLI
 npm install -g @railway/cli
@@ -218,6 +237,7 @@ railway init
 ```
 
 #### 2. Deploy Each Service
+
 ```bash
 # Agent Service
 cd services/agent
@@ -237,6 +257,7 @@ railway up
 ```
 
 #### 3. Configure Environment Variables
+
 ```bash
 # Set environment variables for each service
 railway variables set OPENAI_API_KEY=your-key
@@ -247,6 +268,7 @@ railway variables set MONGODB_URI=your-uri
 ### Database Setup
 
 #### Supabase (PostgreSQL)
+
 ```sql
 -- Create project at https://supabase.com
 -- Run migrations
@@ -254,6 +276,7 @@ psql -h your-host -U postgres -d postgres -f database/supabase/migrations/*.sql
 ```
 
 #### MongoDB (Railway Managed)
+
 ```bash
 # Railway automatically provisions MongoDB
 # Database and collections created automatically
@@ -261,6 +284,7 @@ psql -h your-host -U postgres -d postgres -f database/supabase/migrations/*.sql
 ```
 
 #### Redis (Railway Managed)
+
 ```bash
 # Railway automatically provisions Redis
 # Connection URL provided via environment variables
@@ -268,6 +292,7 @@ psql -h your-host -U postgres -d postgres -f database/supabase/migrations/*.sql
 ```
 
 #### Pinecone
+
 ```bash
 # Create project at https://pinecone.io
 # Create index with 1536 dimensions (OpenAI embeddings)
@@ -279,6 +304,7 @@ psql -h your-host -U postgres -d postgres -f database/supabase/migrations/*.sql
 ## 🔧 External Service Configuration
 
 ### LiveKit Setup
+
 ```bash
 # 1. Create project at https://livekit.io
 # 2. Get API keys
@@ -287,6 +313,7 @@ psql -h your-host -U postgres -d postgres -f database/supabase/migrations/*.sql
 ```
 
 ### OpenAI Configuration
+
 ```bash
 # 1. Get API key from https://platform.openai.com
 # 2. Set usage limits and billing
@@ -294,6 +321,7 @@ psql -h your-host -U postgres -d postgres -f database/supabase/migrations/*.sql
 ```
 
 ### Email/SMS Setup (Optional)
+
 ```bash
 # SendGrid for email
 # 1. Create account at https://sendgrid.com
@@ -307,6 +335,7 @@ psql -h your-host -U postgres -d postgres -f database/supabase/migrations/*.sql
 ## 📊 Monitoring & Health Checks
 
 ### Health Check Endpoints
+
 ```bash
 # Frontend
 curl https://your-domain.vercel.app/api/health
@@ -327,6 +356,7 @@ curl https://voice-service.railway.app/health
 ### Monitoring Setup
 
 #### Sentry (Error Tracking)
+
 ```bash
 # 1. Create project at https://sentry.io
 # 2. Install SDKs in each service
@@ -335,6 +365,7 @@ curl https://voice-service.railway.app/health
 ```
 
 #### Railway Monitoring
+
 ```bash
 # Built-in metrics available in Railway dashboard:
 # - CPU usage
@@ -345,6 +376,7 @@ curl https://voice-service.railway.app/health
 ```
 
 #### Database Monitoring
+
 ```bash
 # Supabase: Built-in dashboard
 # MongoDB Atlas: Monitoring tab
@@ -358,6 +390,7 @@ curl https://voice-service.railway.app/health
 ### Common Issues
 
 #### Frontend Build Fails
+
 ```bash
 # Clear cache and rebuild
 rm -rf .next
@@ -368,6 +401,7 @@ echo $NEXT_PUBLIC_SUPABASE_URL
 ```
 
 #### Service Won't Start
+
 ```bash
 # Check environment variables
 railway variables list
@@ -380,6 +414,7 @@ railway run node -e "console.log('DB test')"
 ```
 
 #### Database Connection Issues
+
 ```bash
 # Test Supabase connection
 psql -h your-host -U postgres -d postgres -c "SELECT 1"
@@ -389,6 +424,7 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 ```
 
 #### LiveKit Audio/Video Issues
+
 ```bash
 # Check TURN server configuration
 # Verify SSL certificates
@@ -397,6 +433,7 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 ```
 
 #### OpenAI API Errors
+
 ```bash
 # Check API key validity
 # Verify usage limits
@@ -409,11 +446,13 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 ## 🚀 Scaling & Performance
 
 ### Frontend Scaling (Vercel)
+
 - **Automatic scaling** based on traffic
 - **Global CDN** for low latency
 - **Edge functions** for dynamic content
 
 ### Service Scaling (Railway)
+
 ```bash
 # Configure scaling in Railway dashboard
 # Set CPU/memory limits
@@ -422,6 +461,7 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 ```
 
 ### Database Scaling (Railway Managed)
+
 ```bash
 # Railway handles scaling automatically:
 # PostgreSQL: Built-in connection pooling and optimization
@@ -431,6 +471,7 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 ```
 
 ### Load Testing
+
 ```bash
 # Use tools like Artillery or k6
 # Test concurrent user scenarios
@@ -443,6 +484,7 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 ## 🔒 Security Checklist
 
 ### Pre-Deployment
+
 - [ ] Environment variables configured securely
 - [ ] API keys rotated and restricted
 - [ ] Database passwords strong and rotated
@@ -450,18 +492,21 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 - [ ] Firewall rules configured
 
 ### Authentication & Authorization
+
 - [ ] Supabase RLS policies active
 - [ ] JWT tokens properly validated
 - [ ] API rate limiting configured
 - [ ] CORS policies set correctly
 
 ### Data Protection
+
 - [ ] Database backups configured
 - [ ] Encryption at rest enabled
 - [ ] GDPR compliance reviewed
 - [ ] Data retention policies set
 
 ### Monitoring & Alerting
+
 - [ ] Error tracking configured
 - [ ] Security monitoring active
 - [ ] Failed login alerts set
@@ -474,18 +519,21 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 ### Regular Maintenance Tasks
 
 #### Weekly
+
 - Review error logs
 - Check performance metrics
 - Update dependencies
 - Backup verification
 
 #### Monthly
+
 - Security updates
 - Database optimization
 - Cost analysis
 - User feedback review
 
 #### Quarterly
+
 - Architecture review
 - Scalability assessment
 - Technology updates
@@ -496,6 +544,7 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 ## 📋 Deployment Checklist
 
 ### Pre-Deployment
+
 - [ ] All environment variables configured
 - [ ] Databases created and migrated
 - [ ] External services connected
@@ -503,6 +552,7 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 - [ ] Domain DNS configured
 
 ### Deployment Steps
+
 - [ ] Deploy frontend to Vercel
 - [ ] Deploy services to Railway
 - [ ] Configure load balancers
@@ -510,6 +560,7 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 - [ ] Test all endpoints
 
 ### Post-Deployment
+
 - [ ] Run health checks
 - [ ] Test user flows
 - [ ] Configure alerts
@@ -517,6 +568,7 @@ mongosh "your-connection-string" --eval "db.runCommand({ping: 1})"
 - [ ] Notify stakeholders
 
 ### Go-Live Verification
+
 - [ ] User registration works
 - [ ] Agent creation functional
 - [ ] Chat conversations work
