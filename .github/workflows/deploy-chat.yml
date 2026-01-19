@@ -1,0 +1,64 @@
+name: CI/CD Chat Service
+
+on:
+  push:
+    paths:
+      - 'services/chat/**'
+      - 'shared/**'
+    branches:
+      - main
+      - develop
+  pull_request:
+    paths:
+      - 'services/chat/**'
+      - 'shared/**'
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8.15.0'
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build shared package
+        run: pnpm --filter @syntera/shared build
+
+      - name: Type check chat service
+        working-directory: services/chat
+        run: pnpm exec tsc --noEmit
+
+      - name: Build chat service
+        working-directory: services/chat
+        run: |
+          pnpm build || (echo "Build failed with exit code $?" && exit 1)
+          if [ ! -f "dist/index.js" ]; then
+            echo "❌ Build failed: dist/index.js not found in working directory"
+            ls -la dist/ || echo "dist directory does not exist"
+            exit 1
+          fi
+          echo "✅ Build successful: dist/index.js found"
+

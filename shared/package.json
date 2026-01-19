@@ -1,0 +1,38 @@
+{
+  "name": "@syntera/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "default": "./dist/client.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "seed": "tsx src/seed/seed-data.ts"
+  },
+  "dependencies": {
+    "@sentry/node": "^8.45.0",
+    "@supabase/supabase-js": "^2.81.1",
+    "ioredis": "^5.8.2",
+    "mongoose": "^8.19.4",
+    "winston": "^3.18.3",
+    "winston-transport": "^4.0.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.25",
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

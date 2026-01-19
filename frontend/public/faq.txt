@@ -1,0 +1,19 @@
+FREQUENTLY ASKED QUESTIONS
+
+Q: How do I reset my password?
+A: Click "Forgot Password" on the login page, enter your email, and follow the instructions sent to your inbox.
+
+Q: Can I change my plan?
+A: Yes, you can upgrade or downgrade anytime from your account settings. Changes take effect immediately.
+
+Q: Do you offer refunds?
+A: Yes, we offer a 30-day money-back guarantee. Contact support for assistance.
+
+Q: What payment methods do you accept?
+A: We accept all major credit cards, PayPal, and bank transfers for annual plans.
+
+Q: Is there a mobile app?
+A: Yes, available on iOS and Android. Search for "Syntera" in your app store.
+
+Q: How do I contact support?
+A: Use this chat, email support@example.com, or call 1-800-555-0123 (Mon-Fri, 9am-5pm EST).

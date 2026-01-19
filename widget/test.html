@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syntera AI - Live Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: float 20s infinite linear;
+      opacity: 0.3;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 30px;
+      opacity: 0.95;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* Main Content */
+    .main-content {
+      background: white;
+      padding: 80px 20px;
+      min-height: calc(100vh - 400px);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #f0f0f0;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.15);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    /* Demo Section */
+    .demo-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 24px;
+      padding: 60px 40px;
+      text-align: center;
+      margin-top: 60px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .demo-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #1a1a1a;
+      font-weight: 700;
+    }
+
+    .demo-section p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+
+    .demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      margin-top: 30px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .demo-badge::before {
+      content: '💬';
+      font-size: 1.2rem;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      margin-top: 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-left: 4px solid #667eea;
+    }
+
+    .info-box h3 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+
+    .info-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-box li {
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .info-box li:last-child {
+      border-bottom: none;
+    }
+
+    .info-box li::before {
+      content: '✓';
+      color: #667eea;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    code {
+      background: #f8f9fa;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      color: #667eea;
+      border: 1px solid #e9ecef;
+    }
+
+    /* Footer */
+    .footer {
+      background: #1a1a1a;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .footer p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .demo-section {
+        padding: 40px 20px;
+      }
+
+      .demo-section h2 {
+        font-size: 2rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .feature-card {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .feature-card:nth-child(1) { animation-delay: 0.1s; }
+    .feature-card:nth-child(2) { animation-delay: 0.2s; }
+    .feature-card:nth-child(3) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="badge">✨ Live Demo</div>
+      <h1>Experience Syntera AI</h1>
+      <p>Your intelligent AI assistant is ready to help. Click the chat button in the bottom-right corner to start a conversation.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container">
+      <!-- Features Grid -->
+      <div class="features">
+        <div class="feature-card">
+          <span class="feature-icon">🤖</span>
+          <h3>AI-Powered Conversations</h3>
+          <p>Engage with intelligent AI agents that understand context, provide accurate responses, and learn from every interaction.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-icon">💬</span>
+          <h3>Multi-Channel Support</h3>
+          <p>Seamlessly switch between text chat and voice calls. Experience natural conversations across all communication channels.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-icon">⚡</span>
+          <h3>Real-Time Responses</h3>
+          <p>Get instant, accurate answers powered by advanced language models and your custom knowledge base.</p>
+        </div>
+      </div>
+
+      <!-- Demo Section -->
+      <div class="demo-section">
+        <h2>Try It Now</h2>
+        <p>Our AI assistant is live and ready to help you. Simply click the floating chat button in the bottom-right corner to start a conversation. Ask questions, request information, or explore the capabilities of our AI agent.</p>
+        <div class="demo-badge">Chat with AI Assistant</div>
+      </div>
+
+      <!-- Info Box -->
+      <div class="info-box">
+        <h3>What You Can Do</h3>
+        <ul>
+          <li>Ask questions and get intelligent responses</li>
+          <li>Have natural conversations with context awareness</li>
+          <li>Switch to voice mode for hands-free interaction</li>
+          <li>Experience multilingual support (English, French, Spanish, and more)</li>
+          <li>Access information from integrated knowledge bases</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <p>Powered by Syntera AI • Enterprise-Grade AI Agent Platform</p>
+    </div>
+  </div>
+
+  <!-- Syntera Widget -->
+  <script src="https://pub-487d70fa1de84574af35bd20e7e86e60.r2.dev/widget.js"
+          data-agent-id="19bcabc6-1f45-4769-9cf2-7b2b69441c36"
+          data-api-key="pub_key_19bcabc6-1f45-4769-9cf2-7b2b69441c36"
+          data-api-url="https://syntera-tau.vercel.app"
+          data-position="bottom-right"
+          data-theme="light"></script>
+
+  <link rel="stylesheet" href="https://pub-487d70fa1de84574af35bd20e7e86e60.r2.dev/widget.css">
+
+  <script>
+    // Optional: Log widget initialization for debugging
+    window.addEventListener('load', () => {
+      if (window.synteraWidget) {
+        console.log('✅ Syntera Widget loaded successfully')
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+Product Catalog:
+Our premium subscription plan costs $29.99/month and includes unlimited access to all features, priority support, and advanced analytics. The basic plan is $9.99/month with limited features. Annual subscriptions save 20%. We offer a 14-day free trial with no credit card required.
+
+Support Policies:
+Standard support response time is 24 hours. Priority customers receive responses within 4 hours. Refunds are available within 30 days of purchase. For technical issues, please provide your account email and a description of the problem. We offer live chat support Monday-Friday, 9 AM-6 PM EST.
+
+Common Solutions:
+Password reset: Use the "Forgot Password" link on the login page. Account locked? Contact support with your registered email. Billing questions? Check your account dashboard under "Billing History".

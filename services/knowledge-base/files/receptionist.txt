@@ -1,0 +1,25 @@
+
+
+# 8. Pre-Written Customer Responses
+
+## 8.1 Greeting
+- “Bonjour 👋, comment puis-je vous aider aujourd’hui ?”  
+- “Bienvenue chez NovaStyle ! En quoi puis-je vous accompagner ?”  
+
+## 8.2 Shipping Question
+> “La livraison standard en France prend 2 à 4 jours ouvrés.  
+> La livraison express arrive sous 24 à 48h.”
+
+## 8.3 Return Instructions
+> “Vous pouvez retourner votre article sous 30 jours.  
+> L’article doit être neuf, avec les étiquettes.  
+> Les retours sont gratuits en France.”
+
+## 8.4 Exchange Confirmation
+> “Bien sûr ! Nous pouvons échanger votre article gratuitement pour une autre taille ou couleur.”
+
+## 8.5 Refund Status
+> “Une fois votre retour validé par notre entrepôt, le remboursement est effectué sous 5 à 7 jours ouvrés.”
+
+---
+

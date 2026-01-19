@@ -1,0 +1,22 @@
+Premium Plan - $99/month
+- Unlimited conversations
+- Advanced analytics
+- Priority support
+- Custom integrations
+
+Standard Plan - $49/month
+- Up to 1,000 conversations/month
+- Basic analytics
+- Email support
+- Standard integrations
+
+Basic Plan - $19/month
+- Up to 100 conversations/month
+- Basic features
+- Community support
+
+All plans include:
+- 24/7 availability
+- Mobile app access
+- API access
+- Knowledge base integration

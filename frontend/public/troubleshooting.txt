@@ -1,0 +1,25 @@
+TROUBLESHOOTING GUIDE
+
+Login Issues:
+- Clear browser cache and cookies
+- Try incognito/private mode
+- Reset password if needed
+- Contact support if problem persists
+
+Slow Performance:
+- Check your internet connection
+- Close other browser tabs
+- Try a different browser
+- Clear browser cache
+
+Payment Problems:
+- Verify card details are correct
+- Check with your bank for holds
+- Try a different payment method
+- Contact billing support
+
+Feature Not Working:
+- Refresh the page
+- Log out and back in
+- Check if feature requires a specific plan
+- Report the issue to support
