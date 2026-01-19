@@ -9,6 +9,7 @@ Workflows enable automation of complex customer interactions without custom deve
 ## 🎯 Workflow Types
 
 ### Customer Onboarding Automation
+
 ```
 Lead Captures Email → Qualify Lead → Create Contact → Send Welcome Email → Schedule Follow-up
 ```
@@ -16,6 +17,7 @@ Lead Captures Email → Qualify Lead → Create Contact → Send Welcome Email �
 **Use Case:** Automatically nurture new leads captured through website chat.
 
 ### Support Ticket Escalation
+
 ```
 Urgent Keywords Detected → Check Agent Availability → Escalate to Human → Notify Manager → Update CRM
 ```
@@ -23,6 +25,7 @@ Urgent Keywords Detected → Check Agent Availability → Escalate to Human → 
 **Use Case:** Ensure critical customer issues get immediate human attention.
 
 ### Sales Qualification Flow
+
 ```
 Purchase Intent Detected → Check Customer History → Generate Quote → Send Proposal → Schedule Demo
 ```
@@ -30,6 +33,7 @@ Purchase Intent Detected → Check Customer History → Generate Quote → Send 
 **Use Case:** Convert interested prospects into qualified sales opportunities.
 
 ### Multi-Channel Response Coordination
+
 ```
 Customer Messages on Multiple Channels → Consolidate Context → Single Agent Response → Sync All Channels
 ```
@@ -41,23 +45,27 @@ Customer Messages on Multiple Channels → Consolidate Context → Single Agent 
 ## 🔧 Available Triggers
 
 ### Conversation Events
+
 - `conversation_started` - New conversation begins
 - `conversation_ended` - Conversation completes
 - `message_received` - New message arrives
 - `agent_assigned` - Agent takes conversation
 
 ### CRM Events
+
 - `contact_created` - New contact added
 - `contact_updated` - Contact information changes
 - `deal_created` - New sales opportunity
 - `deal_stage_changed` - Deal moves through pipeline
 
 ### Time-Based Triggers
+
 - `scheduled_time` - Execute at specific time
 - `conversation_idle` - No activity for X minutes
 - `follow_up_due` - Customer follow-up needed
 
 ### External Triggers
+
 - `webhook` - External system integration
 - `api_call` - REST API trigger
 - `email_received` - New email arrives
@@ -69,6 +77,7 @@ Customer Messages on Multiple Channels → Consolidate Context → Single Agent 
 ### Action Nodes
 
 **Send Email**
+
 ```json
 {
   "type": "send_email",
@@ -85,6 +94,7 @@ Customer Messages on Multiple Channels → Consolidate Context → Single Agent 
 ```
 
 **Create CRM Deal**
+
 ```json
 {
   "type": "create_deal",
@@ -99,6 +109,7 @@ Customer Messages on Multiple Channels → Consolidate Context → Single Agent 
 ```
 
 **HTTP Request**
+
 ```json
 {
   "type": "http_request",
@@ -121,6 +132,7 @@ Customer Messages on Multiple Channels → Consolidate Context → Single Agent 
 ### Logic Nodes
 
 **Condition Branch**
+
 ```json
 {
   "type": "condition",
@@ -133,6 +145,7 @@ Customer Messages on Multiple Channels → Consolidate Context → Single Agent 
 ```
 
 **Wait/Delay**
+
 ```json
 {
   "type": "delay",
@@ -144,6 +157,7 @@ Customer Messages on Multiple Channels → Consolidate Context → Single Agent 
 ```
 
 **Loop Iterator**
+
 ```json
 {
   "type": "loop",
@@ -174,6 +188,7 @@ graph TD
 ```
 
 **Configuration:**
+
 - **Trigger:** `message_received`
 - **Condition:** Message analysis for purchase intent
 - **Actions:** CRM updates, email sequences, calendar booking
@@ -195,6 +210,7 @@ graph TD
 ```
 
 **Configuration:**
+
 - **Trigger:** `message_received`
 - **AI Analysis:** Sentiment + keyword detection
 - **Escalation Rules:** Priority-based routing
@@ -214,6 +230,7 @@ graph TD
 ```
 
 **Configuration:**
+
 - **Trigger:** `deal_stage_changed` to "closed-won"
 - **Timing:** Automated follow-up sequences
 - **CRM Integration:** Update satisfaction metrics
@@ -225,6 +242,7 @@ graph TD
 ### Built-in Variables
 
 **Conversation Data:**
+
 - `{{conversation.id}}` - Conversation identifier
 - `{{conversation.channel}}` - chat, voice, email
 - `{{conversation.started_at}}` - Start timestamp
@@ -232,16 +250,19 @@ graph TD
 - `{{message.sender_type}}` - user, agent, system
 
 **Contact Data:**
+
 - `{{contact.first_name}}` - Customer first name
 - `{{contact.last_name}}` - Customer last name
 - `{{contact.email}}` - Customer email
 - `{{contact.company_name}}` - Organization name
 
 **Agent Data:**
+
 - `{{agent.name}}` - Assigned agent name
 - `{{agent.id}}` - Agent identifier
 
 **CRM Data:**
+
 - `{{deal.value}}` - Deal monetary value
 - `{{deal.stage}}` - Current pipeline stage
 - `{{deal.probability}}` - Close probability percentage
@@ -249,6 +270,7 @@ graph TD
 ### Custom Variables
 
 **Store and reuse data:**
+
 ```json
 {
   "type": "set_variable",
@@ -260,6 +282,7 @@ graph TD
 ```
 
 **Use in subsequent nodes:**
+
 ```json
 {
   "type": "condition",
@@ -277,11 +300,13 @@ graph TD
 ### Workflow Performance Metrics
 
 **Execution Tracking:**
+
 - Success/failure rates per workflow
 - Average execution time
 - Bottleneck identification
 
 **Business Impact:**
+
 - Conversion rates from automated workflows
 - Customer satisfaction improvements
 - Cost savings from automation
@@ -289,12 +314,14 @@ graph TD
 ### Monitoring Dashboard
 
 **Real-time Metrics:**
+
 - Active workflow executions
 - Queue depths by priority
 - Error rates and failure patterns
 - SLA compliance tracking
 
 **Historical Analytics:**
+
 - Workflow performance trends
 - Most effective automation patterns
 - ROI calculations per workflow
@@ -316,16 +343,19 @@ graph TD
 ### Common Patterns
 
 **Lead Qualification:**
+
 ```
 Message → Intent Analysis → CRM Update → Automated Response → Human Handoff
 ```
 
 **Support Routing:**
+
 ```
 Issue → Categorization → Priority Assignment → Queue Selection → Agent Assignment
 ```
 
 **Follow-up Sequences:**
+
 ```
 Event → Delay → Condition Check → Action → Next Step
 ```
@@ -333,11 +363,13 @@ Event → Delay → Condition Check → Action → Next Step
 ### Error Handling
 
 **Fallback Actions:**
+
 - Default responses for failed external API calls
 - Alternative routing when primary agents unavailable
 - Graceful degradation for system outages
 
 **Retry Logic:**
+
 - Configurable retry attempts for transient failures
 - Exponential backoff for external service calls
 - Dead letter queues for persistent failures
@@ -349,11 +381,13 @@ Event → Delay → Condition Check → Action → Next Step
 ### Workflow Management
 
 **List Workflows:**
+
 ```http
 GET /api/workflows
 ```
 
 **Create Workflow:**
+
 ```http
 POST /api/workflows
 Content-Type: application/json
@@ -371,11 +405,13 @@ Content-Type: application/json
 ```
 
 **Test Workflow:**
+
 ```http
 POST /api/workflows/:id/test
 ```
 
 **Execution History:**
+
 ```http
 GET /api/workflows/:id/executions
 ```
@@ -383,9 +419,10 @@ GET /api/workflows/:id/executions
 ### Real-Time Updates
 
 Workflow executions emit real-time events:
+
 ```javascript
-socket.on('workflow:execution', (data) => {
-  console.log('Workflow executed:', data.workflow_id);
+socket.on("workflow:execution", (data) => {
+  console.log("Workflow executed:", data.workflow_id);
 });
 ```
 
@@ -394,24 +431,28 @@ socket.on('workflow:execution', (data) => {
 ## 🎯 Use Cases by Industry
 
 ### E-commerce
+
 - Abandoned cart recovery
 - Order status updates
 - Customer feedback collection
 - Upsell recommendations
 
 ### SaaS Companies
+
 - Trial conversion automation
 - Feature adoption tracking
 - Customer success check-ins
 - Churn prevention alerts
 
 ### Financial Services
+
 - Account opening assistance
 - Transaction notifications
 - Fraud alert automation
 - Compliance document requests
 
 ### Healthcare
+
 - Appointment scheduling
 - Prescription refill reminders
 - Patient intake automation
