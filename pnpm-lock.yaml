@@ -5,7 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 importers:
-
   .:
     dependencies:
       '@radix-ui/react-dialog':
